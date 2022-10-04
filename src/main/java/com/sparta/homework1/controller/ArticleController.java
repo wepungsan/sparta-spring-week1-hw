@@ -16,7 +16,6 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    // 등록된 전체 상품 목록 조회
     @GetMapping("/api/articles")
     public List<ArticleResponseDto> getArticles() throws SQLException {
         List<ArticleResponseDto> articlesDto = articleService.getArticles();
