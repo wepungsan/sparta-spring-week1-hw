@@ -1,6 +1,7 @@
 package com.sparta.homework1.entity;
 
 import com.sparta.homework1.dto.ArticleRequestDto;
+import com.sparta.homework1.dto.ArticleResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,5 +49,9 @@ public class Article extends Timestamped {
         this.author = requestDto.getAuthor();
         this.password = requestDto.getPassword();
         this.content = requestDto.getContent();
+    }
+
+    public ArticleResponseDto toDto() {
+        return new ArticleResponseDto(this.title, this.author, this.content);
     }
 }

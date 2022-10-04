@@ -2,6 +2,7 @@ package com.sparta.homework1.service;
 
 import com.sparta.homework1.dto.ArticlePasswordRequestDto;
 import com.sparta.homework1.dto.ArticleRequestDto;
+import com.sparta.homework1.dto.ArticleResponseDto;
 import com.sparta.homework1.entity.Article;
 import com.sparta.homework1.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,16 +20,16 @@ public class ArticleService {
     @Autowired
     private final ArticleRepository articleRepository;
 
-    public List<Article> getArticles() throws SQLException {
-        List<Article> articles = articleRepository.findAll();
+    public List<ArticleResponseDto> getArticles() throws SQLException {
+        List<ArticleResponseDto> articlesDto = articleRepository.findAll()
+                .stream().map(article -> article.toDto()).collect(Collectors.toList());
 
-        return articles;
+        return articlesDto;
     }
 
-    public Article getArticle(Long id) throws SQLException {
-        Article article = articleRepository.findById(id).orElse(null);
-
-        return article;
+    public ArticleResponseDto getArticle(Long id) throws SQLException {
+        ArticleResponseDto articleDto = articleRepository.findById(id).orElse(null).toDto();
+        return articleDto;
     }
 
     public String checkPassword(Long id, ArticlePasswordRequestDto requestDto) throws SQLException {

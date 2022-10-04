@@ -2,6 +2,7 @@ package com.sparta.homework1.controller;
 
 import com.sparta.homework1.dto.ArticlePasswordRequestDto;
 import com.sparta.homework1.dto.ArticleRequestDto;
+import com.sparta.homework1.dto.ArticleResponseDto;
 import com.sparta.homework1.entity.Article;
 import com.sparta.homework1.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +18,18 @@ public class ArticleController {
 
     // 등록된 전체 상품 목록 조회
     @GetMapping("/api/articles")
-    public List<Article> getArticles() throws SQLException {
-        List<Article> articles = articleService.getArticles();
+    public List<ArticleResponseDto> getArticles() throws SQLException {
+        List<ArticleResponseDto> articlesDto = articleService.getArticles();
 
         // 응답 보내기
-        return articles;
+        return articlesDto;
     }
 
     @GetMapping("/api/article/{id}")
-    public Article getArticle(@PathVariable Long id) throws SQLException {
-        Article article = articleService.getArticle(id);
+    public ArticleResponseDto getArticle(@PathVariable Long id) throws SQLException {
+        ArticleResponseDto articleDto = articleService.getArticle(id);
 
-        return article;
+        return articleDto;
     }
 
     @PostMapping("/api/article")
